@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a href="index.html" class="navbar-logo">Pranav Khodhot E-Commerce Web App</a>
+        <ul class="navbar-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="orders.html">Orders</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section id="cart">
+      <h2>Cart</h2>
+      <div id="cart-list"></div>
+      <button id="checkout-btn">Checkout</button>
+      <div id="checkout-form-container" class="hidden">
+        <div id="checkout-form">
+          <h2>Complete Your Order</h2>
+          <form id="user-info-form">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="full-name" required />
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required />
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+            <div class="form-actions">
+              <button type="button" id="cancel-btn">Cancel</button>
+              <button type="submit" id="submit-btn">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section id="categories" class="align-center">
+      <h2>Categories</h2>
+      <select id="category-dropdown">
+        <option value="">-</option>
+      </select>
+    </section>
+    <section id="products">
+      <h2>Products</h2>
+      <div id="product-list" class="grid"></div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
