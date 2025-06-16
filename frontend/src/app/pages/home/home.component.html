@@ -1,1 +1,34 @@
-<p>home works!</p>
+<section id="cart">
+    <h2>Cart</h2>
+    <div id="cart-list"></div>
+    <button id="checkout-btn">Checkout</button>
+    <div id="checkout-form-container" class="hidden">
+      <div id="checkout-form">
+        <h2>Complete Your Order</h2>
+        <form id="user-info-form">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full-name" required />
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required />
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required />
+          <label for="address">Address</label>
+          <textarea id="address" name="address" rows="3" required></textarea>
+          <div class="form-actions">
+            <button type="button" id="cancel-btn">Cancel</button>
+            <button type="submit" id="submit-btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section id="categories" class="align-center">
+    <h2>Categories</h2>
+    <select id="category-dropdown">
+      <option value="">-</option>
+    </select>
+  </section>
+  <section id="products">
+    <h2>Products</h2>
+    <div id="product-list" class="grid"></div>
+  </section>
