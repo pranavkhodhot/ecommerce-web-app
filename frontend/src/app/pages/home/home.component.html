@@ -1,34 +1,35 @@
-<section id="cart">
-    <h2>Cart</h2>
-    <div id="cart-list"></div>
-    <button id="checkout-btn">Checkout</button>
-    <div id="checkout-form-container" class="hidden">
-      <div id="checkout-form">
-        <h2>Complete Your Order</h2>
-        <form id="user-info-form">
-          <label for="full-name">Full Name</label>
-          <input type="text" id="full-name" name="full-name" required />
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" required />
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" required />
-          <label for="address">Address</label>
-          <textarea id="address" name="address" rows="3" required></textarea>
-          <div class="form-actions">
-            <button type="button" id="cancel-btn">Cancel</button>
-            <button type="submit" id="submit-btn">Submit</button>
-          </div>
-        </form>
-      </div>
+<!-- HERO SECTION -->
+<section class="relative bg-cover bg-center h-[90vh] w-full"
+         [ngStyle]="{ 'background-image': 'url(' + heroImageUrl + ')' }">
+  <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+  <div class="relative z-10 flex flex-col justify-center items-center text-center h-full w-full text-white px-4">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Welcome to Pranav's Shop</h1>
+    <p class="text-lg md:text-xl mb-6 drop-shadow">Discover the latest featured products now.</p>
+    <a href="#products" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded text-white font-medium transition">
+      See What's Featured
+    </a>
+  </div>
+</section>
+
+<section class="py-8 bg-gray-50" id="products">
+  <div class="container mx-auto px-4">
+    <h2 class="text-2xl font-semibold mb-4">Featured Products</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <a *ngFor="let product of products"
+         [routerLink]="['/product', product.product_id]"
+         class="bg-white rounded shadow p-4 hover:shadow-lg transition block">
+         
+        <img [src]="'/assets/product-images/' + product.product_image + '.png'"
+             [alt]="product.product_name"
+             class="w-full h-48 object-cover rounded mb-4" />
+
+        <h3 class="text-lg font-semibold mb-1">{{ product.product_name }}</h3>
+        <p class="text-gray-600 text-sm mb-2">{{ product.description || 'No description available' }}</p>
+        <p class="text-blue-600 font-bold text-md mb-3">${{ product.price.toFixed(2) }}</p>
+        <p class="text-sm text-gray-500">{{ product.stock }} in stock</p>
+      </a>
     </div>
-  </section>
-  <section id="categories" class="align-center">
-    <h2>Categories</h2>
-    <select id="category-dropdown">
-      <option value="">-</option>
-    </select>
-  </section>
-  <section id="products">
-    <h2>Products</h2>
-    <div id="product-list" class="grid"></div>
-  </section>
+  </div>
+</section>
+

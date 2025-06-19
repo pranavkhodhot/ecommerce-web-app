@@ -1,9 +1,50 @@
-<nav class="navbar">
-    <div class="navbar-container">
-      <a href="index.html" class="navbar-logo">Pranav Khodhot E-Commerce Web App</a>
-      <ul class="navbar-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="orders.html">Orders</a></li>
-      </ul>
-    </div>
-  </nav>
+<nav class="bg-white shadow-md relative">
+  <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <!-- Logo -->
+    <a href="/" class="text-xl font-bold text-blue-600 hover:text-blue-800">
+      Pranav Khodhot
+    </a>
+
+    <!-- Links -->
+    <ul class="flex space-x-6 items-center text-gray-700 font-medium">
+      <li><a routerLink="/" class="hover:text-blue-600 transition">Home</a></li>
+      <li><a routerLink="/browse" class="hover:text-blue-600 transition-colors">Browse</a></li>
+      <li><a routerLink="/orders" class="hover:text-blue-600 transition">Orders</a></li>
+
+      <!-- Cart Icon -->
+      <li class="relative">
+        <button (click)="toggleCart()" class="relative">
+          <span id="cart-icon" class="material-icons text-xlg">shopping_cart</span>
+          <span *ngIf="totalItems > 0" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1.5">
+            {{ totalItems }}
+          </span>
+        </button>
+
+        <!-- Cart Dropdown -->
+        <div *ngIf="cartOpen" class="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded z-50 p-4">
+          <h3 class="font-bold text-lg mb-2">Your Cart</h3>
+
+          <div *ngIf="cartItems.length === 0" class="text-sm text-gray-500">Your cart is empty.</div>
+
+          <div *ngFor="let item of cartItems" class="border-b pb-2 mb-2">
+            <div class="flex justify-between">
+              <div>
+                <p class="font-semibold text-sm">{{ item.product.product_name }}</p>
+                <p class="text-xs text-gray-500">${{ item.product.price.toFixed(2) }}</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button (click)="decrease(item)" class="text-xs bg-gray-200 px-2 rounded">-</button>
+                <span class="text-sm">{{ item.quantity }}</span>
+                <button (click)="increase(item)" class="text-xs bg-gray-200 px-2 rounded">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="cartItems.length > 0" class="text-right text-sm font-semibold mt-3">
+            Total: ${{ TotalPrice }}
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
