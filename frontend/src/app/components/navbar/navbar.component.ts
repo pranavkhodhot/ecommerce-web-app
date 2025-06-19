@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
   cartOpen = false;
-
+  navOpen = false;
   constructor(public cartService: CartService) {}
 
   toggleCart() {
