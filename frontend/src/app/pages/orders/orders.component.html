@@ -1,0 +1,16 @@
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-6">All Orders</h2>
+
+  <div *ngFor="let order of orders" class="border rounded p-4 mb-4 hover:bg-gray-50">
+    <div class="flex justify-between items-center">
+      <div>
+        <p class="font-semibold">Order #{{ order.order_id }}</p>
+        <p class="text-sm text-gray-600">{{ order.customer_name }}</p>
+        <p class="text-sm text-gray-500">Date: {{ order.order_date }}</p>
+      </div>
+      <a [routerLink]="['/orders', order.order_id]" class="text-blue-600 hover:underline font-medium">
+        View Details →
+      </a>
+    </div>
+  </div>
+</div>
