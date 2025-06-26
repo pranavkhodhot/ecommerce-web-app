@@ -1,5 +1,7 @@
 # E-Commerce Web App 🛍️
 
+![Screenshot 2025-06-26 at 2 38 40 PM](https://github.com/user-attachments/assets/ae4b958f-ffd9-4e1c-a3ee-a0c6c9327676)
+
 A full-featured **E-Commerce Web Application** built with a modern tech stack: **Angular** + **Tailwind CSS** on the frontend,**Express.js** + **Prisma** on the backend, and **MySQL** for the database. Designed with responsiveness, simplicity, and clean architecture in mind — this project showcases my ability to build robust full stack applications.
 
 
@@ -64,5 +66,5 @@ Follow these steps to set up and run the E-Commerce Web App locally:
    ```bash
    ng serve
    ```
-   ![Screenshot 2025-06-26 at 2 38 40 PM](https://github.com/user-attachments/assets/ae4b958f-ffd9-4e1c-a3ee-a0c6c9327676)
+   
 
