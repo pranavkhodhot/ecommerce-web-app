@@ -1,22 +1,27 @@
 # E-Commerce Web App 🛍️
 
-A fully functional **E-Commerce Web App** featuring a clean and responsive **HTML, CSS, and JavaScript frontend** paired with an **Express.js backend** and **SQLite3** database. This project demonstrates my expertise in building web applications with a focus on simplicity and performance.
+A full-featured **E-Commerce Web Application** built with a modern tech stack: **Angular** + **Tailwind CSS** on the frontend,**Express.js** + **Prisma** on the backend, and **MySQL** for the database. Designed with responsiveness, simplicity, and clean architecture in mind — this project showcases my ability to build robust full stack applications.
+
+
 
 ---
 
 ## Features ✨
-- **Frontend:** Built with HTML, CSS, and JavaScript for a sleek and user-friendly design.
-- **Backend:** Express.js handles the server-side logic and routing.
-- **Database:** SQLite3 for lightweight and efficient data management.
-- **CRUD Operations:** Manage products, handle orders, and process customer data.
+- 🔥 Responsive UI: Built using Angular and Tailwind CSS for a sleek, mobile-first design.
+- ⚙️ Server-side Logic: Express.js manages routing and API logic efficiently.
+- 🛒 Cart & Checkout Flow: Add to cart, view cart items, and place orders.
+- 💾 Persistent Data: MySQL handles product, category, and order data using Prisma ORM.
+- 📦 Product & Order Management: Fully supports CRUD operations for products and order placement.
+- 📈 Scalable Structure: Clear separation of concerns between frontend and backend.
 
 ---
 
 ## Technologies Used 🛠️
-- **Frontend:** HTML, CSS, JavaScript
+- **Frontend:** Angular, Tailwind CSS
 - **Backend:** Node.js, Express.js
-- **Database:** SQLite3
-- **Development Tools:** npm, http-server
+- **ORM:** Prisma
+- **Database:** MySQL
+- **Development Tools:** npm, Angular CLI
 
 ---
 
@@ -29,7 +34,20 @@ Follow these steps to set up and run the E-Commerce Web App locally:
    ```bash
    cd backend
    ```
-2. Run the folllowing command to start up Express server
+2. Run the folllowing command to install required node modules
+   ```bash
+   npm install
+   ```
+3. Create a .env file in the backend directory with your MySQL connection string:
+   ```env
+   DATABASE_URL="mysql://username:password@localhost:3306/database_name"
+   ```
+4. Generate and migrate the Prisma schema:
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev --name init
+   ```
+5. Run the folllowing command to start up Express server
    ```bash
    node server.js
    ```
@@ -42,8 +60,8 @@ Follow these steps to set up and run the E-Commerce Web App locally:
    ```bash
    npm install
    ```
-3. Run the folllowing command to install required node modules
+3. Run the folllowing command to start Frontend
    ```bash
-   npx http-server
+   ng serve
    ```
    <img width="1273" alt="Screenshot 2025-01-11 at 2 25 39 PM" src="https://github.com/user-attachments/assets/808f8e95-6d16-4480-aab3-deb0722268a7" />
