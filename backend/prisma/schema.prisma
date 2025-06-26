@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product_Categories {
+  product_id  Int
+  category_id Int
+  product     Products   @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction, map: "product_categories_ibfk_1")
+  category    Categories @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "product_categories_ibfk_2")
+
+  @@id([product_id, category_id])
+  @@index([category_id], map: "category_id")
+}
+
+model Categories {
+  category_id   Int                  @id @default(autoincrement())
+  category_name String?              @db.VarChar(255)
+  products      Product_Categories[]
+}
+
+model Order_Items {
+  order_id       Int
+  product_id     Int
+  quantity       Int?
+  price_per_item Decimal? @db.Decimal(10, 2)
+  Orders         Orders   @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction, map: "order_items_ibfk_1")
+  Products       Products @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction, map: "order_items_ibfk_2")
+
+  @@id([order_id, product_id])
+  @@index([product_id], map: "product_id")
+}
+
+model Orders {
+  order_id      Int           @id @default(autoincrement())
+  customer_name String?       @db.VarChar(255)
+  email_address String?       @db.VarChar(255)
+  phone_number  String?       @db.VarChar(255)
+  address       String?       @db.VarChar(255)
+  order_date    String?       @db.VarChar(255)
+  total         Decimal?      @db.Decimal(10, 2)
+  Order_Items   Order_Items[]
+}
+
+model Products {
+  product_id    Int                  @id @default(autoincrement())
+  product_name  String?              @db.VarChar(255)
+  price         Decimal?             @db.Decimal(10, 2)
+  description   String?              @db.VarChar(255)
+  stock         Int?
+  product_image String?              @db.VarChar(255)
+  Order_Items   Order_Items[]
+  categories    Product_Categories[]
+}

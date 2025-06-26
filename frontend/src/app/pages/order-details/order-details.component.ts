@@ -22,5 +22,6 @@ export class OrderDetailsComponent implements OnInit {
       next: (data) => this.order = data,
       error: (err) => console.error('Error loading order details:', err)
     });
+    console.log(this.order)
   }
 }

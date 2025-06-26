@@ -5,10 +5,10 @@
     <div *ngFor="let item of cartItems" class="mb-4 border-b pb-2">
       <p class="font-semibold">{{ item.product.product_name }}</p>
       <p>Quantity: {{ item.quantity }}</p>
-      <p>Price: ${{ item.product.price.toFixed(2) }}</p>
+      <p>Price: ${{ item.product.price | number : "1.2-2"  }}</p>
     </div>
 
-    <p class="text-xl font-bold mt-4">Total: ${{ total.toFixed(2) }}</p>
+    <p class="text-xl font-bold mt-4">Total: ${{ total }}</p>
 
     <form class="mt-6 space-y-4" (ngSubmit)="submitOrder()">
       <input [(ngModel)]="fullName" name="fullName" placeholder="Full Name" class="w-full p-2 border rounded" required />

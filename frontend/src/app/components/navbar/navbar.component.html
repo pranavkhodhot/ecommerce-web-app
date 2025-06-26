@@ -50,7 +50,7 @@
               />
               <div class="flex-1">
                 <p class="font-semibold text-sm">{{ item.product.product_name }}</p>
-                <p class="text-xs text-gray-500">${{ item.product.price.toFixed(2) }}</p>
+                <p class="text-xs text-gray-500">${{ item.product.price | number : "1.2-2" }}</p>
               </div>
               <div class="flex items-center gap-2">
                 <button (click)="decrease(item)" class="text-xs bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">−</button>

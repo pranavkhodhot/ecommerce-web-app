@@ -19,7 +19,7 @@
     <div class="flex-1">
       <p class="font-semibold">{{ item.product_name }}</p>
       <p class="text-sm text-gray-500">Quantity: {{ item.quantity }}</p>
-      <p class="text-sm text-gray-500">Price: ${{ item.price_per_item.toFixed(2) }}</p>
+      <p class="text-sm text-gray-500">Price: ${{ +item.price_per_item | number:'1.2-2' }}</p>
     </div>
   </div>
 </div>
