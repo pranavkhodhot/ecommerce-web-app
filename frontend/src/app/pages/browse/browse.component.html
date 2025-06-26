@@ -1,0 +1,36 @@
+<div class="max-w-7xl mx-auto px-4 py-6">
+  <h1 class="text-2xl font-bold mb-4">Browse Products</h1>
+
+  <!-- Filters -->
+  <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+    <!-- Category Dropdown -->
+    <select [(ngModel)]="selectedCategoryId" (change)="onCategoryChange()" class="border rounded px-4 py-2">
+      <option [value]="null">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category.category_id">{{ category.category_name }}</option>
+    </select>
+
+    <!-- Price Dropdown -->
+    <select [(ngModel)]="selectedPriceRange" (change)="onPriceChange()" class="border rounded px-4 py-2">
+      <option *ngFor="let range of priceRanges" [ngValue]="range">{{ range.label }}</option>
+    </select>
+
+    <!-- Search Bar -->
+    <input
+      [(ngModel)]="searchTerm"
+      (input)="onSearchChange()"
+      type="text"
+      placeholder="Search products..."
+      class="border rounded px-4 py-2 w-full sm:w-64"
+    />
+  </div>
+
+  <!-- Products -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <a *ngFor="let product of filteredProducts" [routerLink]="['/product', product.product_id]" class="block bg-white p-4 rounded shadow hover:shadow-lg transition">
+      <img [src]="'/assets/product-images/' + product.product_image + '.png'" alt="{{ product.product_name }}" class="w-full h-40 object-cover mb-2 rounded">
+      <h3 class="text-md font-semibold">{{ product.product_name }}</h3>
+      <p class="text-sm text-gray-600">{{ product.description || 'No description available' }}</p>
+      <p class="text-blue-600 font-bold mt-1">${{ product.price.toFixed(2) }}</p>
+    </a>
+  </div>
+</div>

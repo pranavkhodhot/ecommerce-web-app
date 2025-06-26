@@ -1,0 +1,27 @@
+<section class="max-w-4xl mx-auto p-6 bg-white shadow rounded mt-8">
+  <h2 class="text-2xl font-bold mb-4">Checkout</h2>
+
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <div *ngFor="let item of cartItems" class="mb-4 border-b pb-2">
+      <p class="font-semibold">{{ item.product.product_name }}</p>
+      <p>Quantity: {{ item.quantity }}</p>
+      <p>Price: ${{ item.product.price.toFixed(2) }}</p>
+    </div>
+
+    <p class="text-xl font-bold mt-4">Total: ${{ total.toFixed(2) }}</p>
+
+    <form class="mt-6 space-y-4" (ngSubmit)="submitOrder()">
+      <input [(ngModel)]="fullName" name="fullName" placeholder="Full Name" class="w-full p-2 border rounded" required />
+      <input [(ngModel)]="email" name="email" type="email" placeholder="Email" class="w-full p-2 border rounded" required />
+      <input [(ngModel)]="phone" name="phone" type="tel" placeholder="Phone" class="w-full p-2 border rounded" required />
+      <textarea [(ngModel)]="address" name="address" rows="3" placeholder="Address" class="w-full p-2 border rounded" required></textarea>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+        Place Order
+      </button>
+    </form>
+  </div>
+
+  <ng-template #emptyCart>
+    <p>Your cart is empty.</p>
+  </ng-template>
+</section>

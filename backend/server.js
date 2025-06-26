@@ -76,7 +76,10 @@ app.post("/api/checkout", (req, res) => {
   const db = new sqlite3.Database("./ecommerce.db");
   db.serialize(() => {
     const orderDate = new Date().toISOString().split("T")[0];
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const total = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
     db.run(
       `INSERT INTO Orders (customer_name, email_address, phone_number, address, order_date, total) VALUES (?, ?, ?, ?, ?, ?)`,
       [fullName, email, phone, address, orderDate, total],
@@ -95,22 +98,26 @@ app.post("/api/checkout", (req, res) => {
         );
         let remainingItems = cart.length;
         cart.forEach((item) => {
-          updateStockStatement.run(item.quantity, item.product_id, (err) => {
-            if (err) {
-              console.error(
-                `Failed to update stock for product_id ${item.product_id}: ${err.message}`
-              );
-            }
-          });
-          insertOrderItemStatement.run(
-            orderId,
-            item.product_id,
+          updateStockStatement.run(
             item.quantity,
-            item.price,
+            item.product.product_id,
             (err) => {
               if (err) {
                 console.error(
-                  `Failed to insert order item for product_id ${item.product_id}: ${err.message}`
+                  `Failed to update stock for product_id ${item.product.product_id}: ${err.message}`
+                );
+              }
+            }
+          );
+          insertOrderItemStatement.run(
+            orderId,
+            item.product.product_id,
+            item.quantity,
+            item.product.price,
+            (err) => {
+              if (err) {
+                console.error(
+                  `Failed to insert order item for product_id ${item.product.product_id}: ${err.message}`
                 );
               }
               remainingItems -= 1;
@@ -129,9 +136,9 @@ app.post("/api/checkout", (req, res) => {
 });
 
 //Get order details via order id
-app.get('/api/orders/:orderId', (req, res) => {
+app.get("/api/orders/:orderId", (req, res) => {
   const { orderId } = req.params;
-  const db = new sqlite3.Database('./ecommerce.db'); 
+  const db = new sqlite3.Database("./ecommerce.db");
   db.serialize(() => {
     db.get(
       `SELECT order_id, customer_name, email_address, phone_number, address, order_date, total 
@@ -140,12 +147,14 @@ app.get('/api/orders/:orderId', (req, res) => {
       (err, order) => {
         if (err) {
           console.error(err.message);
-          db.close(); 
-          return res.status(500).json({ error: 'Failed to fetch order details' });
+          db.close();
+          return res
+            .status(500)
+            .json({ error: "Failed to fetch order details" });
         }
         if (!order) {
-          db.close(); 
-          return res.status(404).json({ error: 'Order not found' });
+          db.close();
+          return res.status(404).json({ error: "Order not found" });
         }
         db.all(
           `SELECT oi.product_id, p.product_name, oi.quantity, oi.price_per_item , p.product_image
@@ -156,10 +165,12 @@ app.get('/api/orders/:orderId', (req, res) => {
             if (err) {
               console.error(err.message);
               db.close();
-              return res.status(500).json({ error: 'Failed to fetch order products' });
+              return res
+                .status(500)
+                .json({ error: "Failed to fetch order products" });
             }
             res.json({ ...order, products });
-            db.close(); 
+            db.close();
           }
         );
       }

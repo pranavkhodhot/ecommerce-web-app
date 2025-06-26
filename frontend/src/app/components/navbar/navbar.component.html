@@ -1,0 +1,89 @@
+<nav class="bg-white shadow-md relative">
+  <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <!-- Logo -->
+    <a href="/" class="block"><img src="../../../assets/fashionating-logo-1.png" alt="logo" class="h-10 w-auto max-w-full object-contain"></a>
+
+    <!-- Hamburger Icon (Mobile) -->
+    <button
+      class="sm:hidden text-gray-600 focus:outline-none"
+      (click)="navOpen = !navOpen"
+    >
+      <span class="material-icons">menu</span>
+    </button>
+
+    <!-- Nav Links (Desktop) -->
+    <ul
+      class="hidden sm:flex space-x-6 items-center text-gray-700 font-medium"
+    >
+      <li><a routerLink="/browse" class="hover:text-blue-600 transition">Browse</a></li>
+      <li><a routerLink="/orders" class="hover:text-blue-600 transition">Orders</a></li>
+
+      <!-- Cart -->
+      <li class="relative">
+        <button (click)="toggleCart()" class="relative">
+          <span class="material-icons text-xl cart-icon">shopping_cart</span>
+          <span
+            *ngIf="totalItems > 0"
+            class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1.5"
+          >
+            {{ totalItems }}
+          </span>
+        </button>
+
+        <!-- Cart Dropdown -->
+        <div
+          *ngIf="cartOpen"
+          class="absolute right-0 mt-2 w-full max-w-sm bg-white shadow-xl rounded-lg z-50 p-4 sm:right-4 sm:w-96"
+        >
+          <h3 class="font-bold text-lg mb-4 border-b pb-2">Your Cart</h3>
+
+          <div *ngIf="cartItems.length === 0" class="text-sm text-gray-500 text-center">
+            Your cart is empty.
+          </div>
+
+          <div *ngFor="let item of cartItems" class="border-b pb-3 mb-3">
+            <div class="flex items-center gap-3">
+              <img
+                [src]="'/assets/product-images/' + item.product.product_image + '.png'"
+                [alt]="item.product.product_name"
+                class="w-12 h-12 object-cover rounded"
+              />
+              <div class="flex-1">
+                <p class="font-semibold text-sm">{{ item.product.product_name }}</p>
+                <p class="text-xs text-gray-500">${{ item.product.price.toFixed(2) }}</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button (click)="decrease(item)" class="text-xs bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">−</button>
+                <span class="text-sm font-medium">{{ item.quantity }}</span>
+                <button (click)="increase(item)" class="text-xs bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="cartItems.length > 0" class="flex flex-col gap-4 mt-4">
+            <div class="flex justify-between text-sm font-semibold">
+              <span>Total:</span>
+              <span>${{ TotalPrice }}</span>
+            </div>
+
+            <a
+              routerLink="/checkout"
+              class="w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition duration-200"
+              (click)="cartOpen = false"
+            >
+              Proceed to Checkout
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div *ngIf="navOpen" class="sm:hidden px-4 pb-4">
+    <ul class="flex flex-col space-y-3 text-gray-700 font-medium">
+      <li><a routerLink="/browse" (click)="navOpen = false" class="hover:text-blue-600">Browse</a></li>
+      <li><a routerLink="/orders" (click)="navOpen = false" class="hover:text-blue-600">Orders</a></li>
+    </ul>
+  </div>
+</nav>
