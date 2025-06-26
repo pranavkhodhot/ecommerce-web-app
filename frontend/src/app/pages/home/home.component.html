@@ -1,17 +1,25 @@
 <!-- HERO SECTION -->
-<section class="relative bg-cover bg-center h-[90vh] w-full"
+<section class="relative h-[90vh] bg-cover bg-center text-white"
          [ngStyle]="{ 'background-image': 'url(' + heroImageUrl + ')' }">
-  <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-  <div class="relative z-10 flex flex-col justify-center items-center text-center h-full w-full text-white px-4">
-    <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Welcome to Pranav's Shop</h1>
-    <p class="text-lg md:text-xl mb-6 drop-shadow">Discover the latest featured products now.</p>
-    <a href="#products" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded text-white font-medium transition">
-      See What's Featured
-    </a>
+  <div class="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent"></div>
+  <div class="relative z-10 flex flex-col justify-center h-full max-w-4xl px-11">
+    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight uppercase mb-4">Discover Your Style</h1>
+    <p class="text-lg md:text-xl text-white/90 font-light mb-6">Premium picks. Fast shipping. Quality guaranteed.</p>
+    <div class="flex gap-4">
+      <a href="#products"
+         class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded shadow-lg transition-all duration-300 transform hover:scale-105">
+         See What's Featured
+      </a>
+      <a routerLink="/browse"
+         class="px-6 py-3 bg-white text-blue-600 hover:text-blue-700 rounded shadow transition-all duration-300 border border-blue-600">
+         Shop All Products
+      </a>
+    </div>
   </div>
 </section>
 
-<section class="py-8 bg-gray-50" id="products">
+
+<section class="pb-8 bg-gray-50" id="products">
   <div class="container mx-auto px-4">
     <h2 class="text-2xl font-semibold mb-4">Featured Products</h2>
 

@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './browse.component.html',
-  styleUrls: ['./browse.component.scss']
+  styleUrls: ['./browse.component.scss'],
 })
 export class BrowseComponent implements OnInit {
   categories: any[] = [];
@@ -37,36 +37,82 @@ export class BrowseComponent implements OnInit {
   }
 
   fetchCategories() {
-    this.http.get<any[]>('http://localhost:3000/api/categories').subscribe(data => {
-      this.categories = data;
-    });
+    this.http
+      .get<any[]>('http://localhost:3000/api/categories')
+      .subscribe((data) => {
+        this.categories = data;
+      });
   }
 
   fetchAllProducts() {
-    this.http.get<any[]>('http://localhost:3000/api/products').subscribe(data => {
-      this.allProducts = data;
-      this.applyFilters();
-    });
-  }
-
-  onCategoryChange() {
-    if (this.selectedCategoryId) {
-      this.http.get<any[]>(`http://localhost:3000/api/products/category/${this.selectedCategoryId}`).subscribe(data => {
+    this.http
+      .get<any[]>('http://localhost:3000/api/products')
+      .subscribe((data) => {
         this.allProducts = data;
         this.applyFilters();
       });
-    } else {
+  }
+
+  onCategoryChange() {
+    if (
+      String(this.selectedCategoryId) === 'null' ||
+      this.selectedCategoryId === null
+    ) {
+      this.selectedCategoryId = null;
       this.fetchAllProducts();
+    } else {
+      this.http
+        .get<any[]>(
+          `http://localhost:3000/api/products/category/${this.selectedCategoryId}`
+        )
+        .subscribe((data) => {
+          this.allProducts = data;
+          this.applyFilters();
+        });
     }
   }
 
   applyFilters() {
-    this.filteredProducts = this.allProducts.filter(product => {
-      const matchesPrice = (!this.selectedPriceRange.min || product.price >= this.selectedPriceRange.min) &&
-                           (!this.selectedPriceRange.max || product.price <= this.selectedPriceRange.max);
-      const matchesSearch = product.product_name.toLowerCase().includes(this.searchTerm.toLowerCase());
+    this.filteredProducts = this.allProducts.filter((product) => {
+      const matchesPrice =
+        (!this.selectedPriceRange.min ||
+          product.price >= this.selectedPriceRange.min) &&
+        (!this.selectedPriceRange.max ||
+          product.price <= this.selectedPriceRange.max);
+      const matchesSearch = product.product_name
+        .toLowerCase()
+        .includes(this.searchTerm.toLowerCase());
       return matchesPrice && matchesSearch;
     });
+  }
+
+  hasActiveFilters(): boolean {
+    return (
+      (String(this.selectedCategoryId) !== 'null' &&
+        this.selectedCategoryId !== null &&
+        this.selectedPriceRange.label !== 'All Prices') ||
+      this.searchTerm.trim() !== ''
+    );
+  }
+
+  getCategoryName(id: number): string {
+    const category = this.categories.find((cat) => cat.category_id === id);
+    return category ? category.category_name : 'Unknown';
+  }
+
+  clearCategory() {
+    this.selectedCategoryId = null;
+    this.fetchAllProducts();
+  }
+
+  clearPrice() {
+    this.selectedPriceRange = this.priceRanges[0];
+    this.applyFilters();
+  }
+
+  clearSearch() {
+    this.searchTerm = '';
+    this.applyFilters();
   }
 
   onSearchChange() {

@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
-
 const app = express();
 const prisma = new PrismaClient();
 
@@ -11,7 +10,7 @@ app.use(express.json());
 // Get all products
 app.get("/api/products", async (req, res) => {
   try {
-    const products = await prisma.Products.findMany(); // Changed from product to Products
+    const products = await prisma.Products.findMany(); 
     res.json(products);
   } catch (err) {
     res.status(500).send(err.message);
@@ -35,7 +34,7 @@ app.get("/api/products/category/:id", async (req, res) => {
 // Get all categories
 app.get("/api/categories", async (req, res) => {
   try {
-    const categories = await prisma.Categories.findMany(); // Changed from category to Categories
+    const categories = await prisma.Categories.findMany(); 
     res.json(categories);
   } catch (err) {
     res.status(500).send(err.message);
@@ -61,7 +60,7 @@ app.get("/api/products/:id", async (req, res) => {
 // Get all orders
 app.get("/api/orders", async (req, res) => {
   try {
-    const orders = await prisma.order.findMany();
+    const orders = await prisma.Orders.findMany();
     res.json(orders);
   } catch (err) {
     res.status(500).send(err.message);
@@ -78,7 +77,7 @@ app.post("/api/checkout", async (req, res) => {
   );
 
   try {
-    const order = await prisma.order.create({
+    const order = await prisma.orders.create({
       data: {
         customer_name: fullName,
         email_address: email,
@@ -86,7 +85,7 @@ app.post("/api/checkout", async (req, res) => {
         address,
         order_date: orderDate,
         total,
-        items: {
+        Order_Items: {
           create: cart.map((item) => ({
             product_id: item.product.product_id,
             quantity: item.quantity,
@@ -96,15 +95,21 @@ app.post("/api/checkout", async (req, res) => {
       },
     });
 
+    // Update stock
     for (const item of cart) {
-      await prisma.product.update({
+      await prisma.products.update({
         where: { product_id: item.product.product_id },
-        data: { stock: { decrement: item.quantity } },
+        data: {
+          stock: {
+            decrement: item.quantity,
+          },
+        },
       });
     }
 
     res.json({ success: true });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Checkout failed", detail: err.message });
   }
 });
@@ -113,37 +118,47 @@ app.post("/api/checkout", async (req, res) => {
 app.get("/api/orders/:orderId", async (req, res) => {
   const orderId = parseInt(req.params.orderId);
   try {
-    const order = await prisma.order.findUnique({
+    const order = await prisma.orders.findUnique({
       where: { order_id: orderId },
       include: {
-        items: {
+        Order_Items: {
           include: {
-            product: true,
+            Products: true,
           },
         },
       },
     });
 
-    if (!order) return res.status(404).json({ error: "Order not found" });
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
 
     const formattedOrder = {
-      ...order,
-      products: order.items.map((item) => ({
+      order_id: order.order_id,
+      customer_name: order.customer_name,
+      email_address: order.email_address,
+      phone_number: order.phone_number,
+      address: order.address,
+      order_date: order.order_date,
+      total: order.total,
+      products: order.Order_Items.map((item) => ({
         product_id: item.product_id,
-        product_name: item.product.product_name,
+        product_name: item.Products?.product_name,
         quantity: item.quantity,
         price_per_item: item.price_per_item,
-        product_image: item.product.product_image,
+        product_image: item.Products?.product_image,
       })),
     };
 
     res.json(formattedOrder);
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "Failed to fetch order details", detail: err.message });
+    res.status(500).json({
+      error: "Failed to fetch order details",
+      detail: err.message,
+    });
   }
 });
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
