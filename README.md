@@ -64,4 +64,5 @@ Follow these steps to set up and run the E-Commerce Web App locally:
    ```bash
    ng serve
    ```
-   <img width="1273" alt="Screenshot 2025-01-11 at 2 25 39 PM" src="https://github.com/user-attachments/assets/808f8e95-6d16-4480-aab3-deb0722268a7" />
+   ![Screenshot 2025-06-26 at 2 38 40 PM](https://github.com/user-attachments/assets/ae4b958f-ffd9-4e1c-a3ee-a0c6c9327676)
+
