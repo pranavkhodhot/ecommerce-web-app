@@ -1,24 +1,8 @@
-$secondaryColor: #e1bb65;
-
 nav {
-    background-color: #003049;
-}
-
-a {
-    color: white;
-}
-
-#logo {
-    width: 15%;
-    display: flex;
-    justify-content: center;
+  background-color: #03304a;
+  color: #e1bb65;
 }
 
 .cart-icon {
-  color: $secondaryColor;
-}
-
-.checkout-btn {
-    background-color: $secondaryColor;
-    color: white;
+  color: #e1bb65; // gold accent
 }

@@ -1,20 +1,29 @@
-<!-- HERO SECTION -->
-<section class="relative h-[90vh] bg-cover bg-center text-white"
-         [ngStyle]="{ 'background-image': 'url(' + heroImageUrl + ')' }">
-  <div class="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent"></div>
-  <div class="relative z-10 flex flex-col justify-center h-full max-w-4xl px-11">
-    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight uppercase mb-4">Discover Your Style</h1>
-    <p class="text-lg md:text-xl text-white/90 font-light mb-6">Premium picks. Fast shipping. Quality guaranteed.</p>
-    <div class="flex gap-4">
-      <a href="#products"
-         class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded shadow-lg transition-all duration-300 transform hover:scale-105">
-         See What's Featured
-      </a>
-      <a routerLink="/browse"
-         class="px-6 py-3 bg-white text-blue-600 hover:text-blue-700 rounded shadow transition-all duration-300 border border-blue-600">
-         Shop All Products
-      </a>
+<section class="hero h-[100vh] px-6 relative overflow-hidden flex items-center justify-center">
+  <div class="container mx-auto flex flex-col xl:flex-row items-center justify-center h-full text-white text-center z-10">
+
+    <!-- Text Content -->
+    <div class="text-content w-full xl:w-1/2 flex flex-col px-4 text-left">
+      <h1 class="text-4xl xl:text-6xl font-extrabold tracking-tight uppercase mb-4 ">Discover Your Style</h1>
+      <p class="text-lg xl:text-xl mb-6">
+        Premium picks. Fast shipping. Quality guaranteed.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#products"
+           class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded shadow-lg transition-all duration-300 transform hover:scale-105">
+          See What's Featured
+        </a>
+        <a routerLink="/browse"
+           class="px-6 py-3 bg-white text-blue-600 hover:text-blue-700 rounded shadow transition-all duration-300 border border-blue-600">
+          Shop All Products
+        </a>
+      </div>
     </div>
+
+    <!-- Model Image (hidden below 1280px) -->
+    <div class="model-container hidden xl:flex w-1/2 h-full items-center justify-center">
+      <img src="/assets/fashionating-model.png" alt="Model" class="model-image h-full object-cover" />
+    </div>
+
   </div>
 </section>
 
