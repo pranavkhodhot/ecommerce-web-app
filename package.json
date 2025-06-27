@@ -1,0 +1,16 @@
+{
+  "name": "3005-project",
+  "version": "1.0.0",
+  "description": "A fully functional **E-Commerce Web App** featuring a clean and responsive **HTML, CSS, and JavaScript frontend** paired with an **Express.js backend** and **SQLite3** database. This project demonstrates my expertise in building web applications with a focus on simplicity and performance.",
+  "main": "index.js",
+  "scripts": {
+    "test:e2e": "npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.53.1",
+    "@types/node": "^24.0.4"
+  }
+}
