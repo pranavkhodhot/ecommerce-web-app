@@ -22,8 +22,6 @@ test('Homepage loads and hero section displays correctly', async ({ page }) => {
     await browseButton.click();
     await expect(page).toHaveURL(/\/browse/);
     await expect(page.getByRole('heading', { name: 'Browse Products' })).toBeVisible();
-    const productCards = page.locator('div').filter({ hasText: 'Coral HoodieThis Coral hoodie' }).nth(1);
-    //await expect(productCards).toHaveCount(22);
 
   });
 });
