@@ -22,6 +22,7 @@
         <button (click)="toggleCart()" class="relative">
           <span class="material-icons text-xl cart-icon">shopping_cart</span>
           <span
+            data-testid="total-items"
             *ngIf="totalItems > 0"
             class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1.5"
           >
