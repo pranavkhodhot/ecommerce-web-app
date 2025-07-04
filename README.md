@@ -1,4 +1,4 @@
-# E-Commerce Web App 🛍️
+# Fashionating E-Commerce Web App 🛍️
 
 ![Screenshot 2025-06-26 at 2 38 40 PM](https://github.com/user-attachments/assets/ae4b958f-ffd9-4e1c-a3ee-a0c6c9327676)
 
