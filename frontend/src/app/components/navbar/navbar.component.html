@@ -19,9 +19,10 @@
 
       <!-- Cart -->
       <div class="relative">
-        <button (click)="toggleCart()" class="relative">
+        <button data-testid="cart-btn" (click)="toggleCart()" class="relative">
           <span class="material-icons text-xl cart-icon">shopping_cart</span>
           <span
+            data-testid="total-items"
             *ngIf="totalItems > 0"
             class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1.5"
           >
@@ -31,6 +32,7 @@
 
         <!-- Cart Dropdown -->
         <div
+          data-testid="cart-dropdown" 
           *ngIf="cartOpen"
           class="absolute text-black right-0 mt-2 w-full max-w-sm bg-white shadow-xl rounded-lg z-50 p-4 sm:right-4 sm:w-96"
         >
@@ -62,7 +64,7 @@
           <div *ngIf="cartItems.length > 0" class="flex flex-col gap-4 mt-4">
             <div class="flex justify-between text-sm font-semibold">
               <span>Total:</span>
-              <span>${{ TotalPrice }}</span>
+              <span data-testid="total-price">${{ TotalPrice }}</span>
             </div>
 
             <a
